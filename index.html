@@ -2,6 +2,16 @@
 <html>
 <head>
 	<title>TriviaGame</title>
+	<style>
+		 .displayNone{
+			display: none;
+		}
+
+		#startButton{
+			width: 15%;
+			height: 75px;
+		}
+	</style>
 </head>
 
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -13,62 +23,29 @@
 	</div>
 
 
-	<div class="displayNone" id="quizScreen">
-		<!-- <h3>Time Remaining: <span id="counter"></span> Seconds</h3> -->
+	<div id="quizScreen"></div>
 
-		<!-- <h3>Who released the song Heartbreak Hotel in 1956?</h3>
-		<input type="radio" name="question1" value="">Chuck Berry</br>
-		<input type="radio" name="question1" value="">Elvis Presley</br>
-		<input type="radio" name="question1" value="">Johnny Cash</br>
-		<input type="radio" name="question1" value="">Bob Dylan</br>
 
-		<h3>In which year was The Rolling Stones first American Tour?</h3>
-		<input type="radio" name="question2" value="">1962</br>
-		<input type="radio" name="question2" value="">1965</br>
-		<input type="radio" name="question2" value="">1967</br>
-		<input type="radio" name="question2" value="">1964</br>
+	<div id="finishScreen"></div>
 
-		<h3>How was Bob Dylan recieved the first time he played electric guitar on stage</h3>
-		<input type="radio" name="question3" value="">Boo'd off stage</br>
-		<input type="radio" name="question3" value="">Standing ovation</br>
-		<input type="radio" name="question3" value="">New record deal</br>
-		<input type="radio" name="question3" value="">No spectacular response</br>
 
-		<h3>What was Led Zeppelins debut album?</h3>
-		<input type="radio" name="question4" value="">Houses of the Holy</br>
-		<input type="radio" name="question4" value="">Physical Graffiti</br>
-		<input type="radio" name="question4" value="">Led Zeppelin I</br>
-		<input type="radio" name="question4" value="">Led Zeppelin IV</br>
 
-		<h3>Which band did Jimmy Page, Eric Clapton, and Jeff Beck all play in?</h3>
-		<input type="radio" name="question5" value="">The Beatles</br>
-		<input type="radio" name="question5" value="">The Yardbirds</br>
-		<input type="radio" name="question5" value="">The Eric Clapton Band</br>
-		<input type="radio" name="question5" value="">The Tomahawks</br> -->
-	</div>
-
-<!-- 	<div id="finishScreen">
-		<h3>All Done!</h3>
-		<br>
-		<h4>Correct Answers</h4>
-	</div> -->
 
 	<script>
 		window.onload = function(){
 			$('#startButton').click(countdown.start);
-			// $('#startButton').click(function(){
-			// 	$('#quizScreen').prepend('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
-			// });
+			
 		};
 
 		//an array of objects for the question
  		var questions = [
  			{
  			question:"Who released the song Heartbreak Hotel in 1956?",
- 			answer1: "Chuck Berry",
- 			answer2: "Elvis Presley",
- 			answer3: "Johnny Cash",
- 			answer4: "Bob Dylan"
+	 			answer1: "Chuck Berry",
+	 			answer2: "Elvis Presley",
+	 			answer3: "Johnny Cash",
+	 			answer4: "Bob Dylan"
+ 			// answer: "b"
  			},
  			{
  			question:"In which year was The Rolling Stones first American Tour?",
@@ -76,6 +53,7 @@
  			answer2: "1965",
  			answer3: "1967",
  			answer4: "1964"
+ 			// answer: "d"
  			},
  			{
  			question:"How was Bob Dylan recieved the first time he played electric guitar on stage?",
@@ -83,6 +61,7 @@
  			answer2: "Standing ovation",
  			answer3: "New record deal",
  			answer4: "No spectacular response"
+ 			// answer: "a"
  			},
  			{
  			question:"What was Led Zeppelins debut album?",
@@ -90,6 +69,7 @@
  			answer2: "Physical Graffitti",
  			answer3: "Led Zeppelin I",
  			answer4: "Led Zeppelin IV"
+ 			// answer: "c"
  			},
  			{
  			question:"Which band did Jimmy Page, Eric Clapton, and Jeff Beck all play in?",
@@ -97,7 +77,9 @@
  			answer2: "The Yardbirds",
  			answer3: "The Eric Clapton Band",
  			answer4: "The Tomahawks"
- 			}
+ 			// answer: "b"
+ 			},
+
  		];
 
 		var intervalId;
@@ -106,7 +88,7 @@
 
 		var countdown = {
 
-			time: 30,
+			time: 5,
 
 			reset: function(){
 				countdown.time = 30;
@@ -126,15 +108,35 @@
 				
 					//Render the questions
 					for(var i = 0; i < questions.length; i++){
-						var renderQuestions = '<h3>' + questions[i].question + '</h3>' + '<input type="radio" name="question1" value="">' + questions[i].answer1 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer2 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer3 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer4 + '</br>';
+						var renderQuestions = '<h3>' + questions[i].question + '</h3><input type="radio" name="question' + [i] + '" value="">' + questions[i].answer1 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer2 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer3 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer4 + '</br>';
 						$('#quizScreen').append(renderQuestions); 
 					}
 			},
 
 			count: function(){
+				if(countdown.time == 1){
+					countdown.stop();
+				}
 				countdown.time--;
 
 				$('#counter').html(countdown.time);
+			},
+
+			stop: function(){
+				clearInterval(intervalId);
+				clockRunning = false;
+
+				$('#quizScreen').addClass('displayNone');
+
+				var testString = 'test';
+				
+				var renderScore = '<h2>All Done!</h2><br><h3>Correct Answers: ' + testString + '<h3>Incorrect Andswers: ' +  testString+ '<h3>Unanswered: ' + testString+ '</h3';
+				$('#finishScreen').append(renderScore);
+
+				//make a loop to go through questions to see which are right and which aren't
+				for(var i = 0; i < questions.length; i++){
+					console.log('check');
+				}
 			}
 
 

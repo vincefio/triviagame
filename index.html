@@ -14,10 +14,9 @@
 
 
 	<div class="displayNone" id="quizScreen">
-	</div>
-		<!-- <h3>Time Remaining: <span id="counter"></span> Seconds</h3>
+		<!-- <h3>Time Remaining: <span id="counter"></span> Seconds</h3> -->
 
-		<h3>Who released the song Heartbreak Hotel in 1956?</h3>
+		<!-- <h3>Who released the song Heartbreak Hotel in 1956?</h3>
 		<input type="radio" name="question1" value="">Chuck Berry</br>
 		<input type="radio" name="question1" value="">Elvis Presley</br>
 		<input type="radio" name="question1" value="">Johnny Cash</br>
@@ -46,7 +45,7 @@
 		<input type="radio" name="question5" value="">The Yardbirds</br>
 		<input type="radio" name="question5" value="">The Eric Clapton Band</br>
 		<input type="radio" name="question5" value="">The Tomahawks</br> -->
-	
+	</div>
 
 <!-- 	<div id="finishScreen">
 		<h3>All Done!</h3>
@@ -56,21 +55,50 @@
 
 	<script>
 		window.onload = function(){
-			$('#startButton').click(countdown.start, function(){
-				$('#quizScreen').append('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
-			});
+			$('#startButton').click(countdown.start);
+			// $('#startButton').click(function(){
+			// 	$('#quizScreen').prepend('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
+			// });
 		};
 
 		//an array of objects for the question
-		var questions = [
-			{
-			question1:"Who released the song Heartbreak Hotel in 1956?",
-			wrongAnswer1: "Chuck Berry",
-			rightAnswer: "Elvis Presley",
-			wrongAnswer2: "Johnny Cash",
-			wrongAnswer3: "Bob Dylan"
-			}
-		];
+ 		var questions = [
+ 			{
+ 			question:"Who released the song Heartbreak Hotel in 1956?",
+ 			answer1: "Chuck Berry",
+ 			answer2: "Elvis Presley",
+ 			answer3: "Johnny Cash",
+ 			answer4: "Bob Dylan"
+ 			},
+ 			{
+ 			question:"In which year was The Rolling Stones first American Tour?",
+ 			answer1: "1962",
+ 			answer2: "1965",
+ 			answer3: "1967",
+ 			answer4: "1964"
+ 			}
+ 			// {
+ 			// question:"Who released the song Heartbreak Hotel in 1956?",
+ 			// answer1: "Chuck Berry",
+ 			// answer2: "Elvis Presley",
+ 			// answer3: "Johnny Cash",
+ 			// answer4: "Bob Dylan"
+ 			// }
+ 			// {
+ 			// question:"Who released the song Heartbreak Hotel in 1956?",
+ 			// answer1: "Chuck Berry",
+ 			// answer2: "Elvis Presley",
+ 			// answer3: "Johnny Cash",
+ 			// answer4: "Bob Dylan"
+ 			// }
+ 			// {
+ 			// question:"Who released the song Heartbreak Hotel in 1956?",
+ 			// answer1: "Chuck Berry",
+ 			// answer2: "Elvis Presley",
+ 			// answer3: "Johnny Cash",
+ 			// answer4: "Bob Dylan"
+ 			// }
+ 		];
 
 		var intervalId;
 
@@ -87,22 +115,20 @@
 			},
 
 			start: function(){
-
-					//render all of the questions on the page
-     				//<h3>Time Remaining: <span id="counter"></span> Seconds</h3>
-     				// var counter = '<h3>Time Remaining: <span id="counter"></span> Seconds</h3>';
-     				$('#quizScreen').append('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
-     				
+				
 					if (!clockRunning) {
         				intervalId = setInterval(countdown.count, 1000);
        					clockRunning = true;
      				}
 
-
-     				// for(var i = 0; i < questions.length; i++){
-     				// 	console.log('works bitch');
-     				// }
-
+     				//Render the counter Screen
+     				$('#quizScreen').prepend('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
+				
+					//Render the questions
+					for(var i = 0; i < questions.length; i++){
+						var renderQuestions = '<h3>' + questions[i].question + '</h3>' + '<input type="radio" name="question1" value="">' + questions[i].answer1 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer2 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer3 + '</br> <input type="radio" name="question1" value="">' + questions[i].answer4 + '</br>';
+						$('#quizScreen').append(renderQuestions); 
+					}
 			},
 
 			count: function(){

@@ -1,0 +1,99 @@
++<!DOCTYPE html>
+ +<html>
+ +<head>
+ +	<title>TriviaGame</title>
+ +</head>
+ +
+ +<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+ +<body>
+ +	<h1>Rock n Roll Trivia</h1>
+ +
+ +	<div id="startPage">
+ +		<button type="button" id="startButton">Start</button>
+ +	</div>
+ +
+ +
+ +	<div class="displayNone" id="quizScreen">
+ +		<h3>Time Remaining: <span id="counter"></span> Seconds</h3>
+ +
+ +		<h3>Who released the song Heartbreak Hotel in 1956?</h3>
+ +		<input type="radio" name="question1" value="">Chuck Berry</br>
+ +		<input type="radio" name="question1" value="">Elvis Presley</br>
+ +		<input type="radio" name="question1" value="">Johnny Cash</br>
+ +		<input type="radio" name="question1" value="">Bob Dylan</br>
+ +
+ +		<h3>In which year was The Rolling Stones first American Tour?</h3>
+ +		<input type="radio" name="question2" value="">1962</br>
+ +		<input type="radio" name="question2" value="">1965</br>
+ +		<input type="radio" name="question2" value="">1967</br>
+ +		<input type="radio" name="question2" value="">1964</br>
+ +
+ +		<h3>How was Bob Dylan recieved the first time he played electric guitar on stage</h3>
+ +		<input type="radio" name="question3" value="">Boo'd off stage</br>
+ +		<input type="radio" name="question3" value="">Standing ovation</br>
+ +		<input type="radio" name="question3" value="">New record deal</br>
+ +		<input type="radio" name="question3" value="">No spectacular response</br>
+ +
+ +		<h3>What was Led Zeppelins debut album?</h3>
+ +		<input type="radio" name="question4" value="">Houses of the Holy</br>
+ +		<input type="radio" name="question4" value="">Physical Graffiti</br>
+ +		<input type="radio" name="question4" value="">Led Zeppelin I</br>
+ +		<input type="radio" name="question4" value="">Led Zeppelin IV</br>
+ +
+ +		<h3>Which band did Jimmy Page, Eric Clapton, and Jeff Beck all play in?</h3>
+ +		<input type="radio" name="question5" value="">The Beatles</br>
+ +		<input type="radio" name="question5" value="">The Yardbirds</br>
+ +		<input type="radio" name="question5" value="">The Eric Clapton Band</br>
+ +		<input type="radio" name="question5" value="">The Tomahawks</br>
+ +	</div>
+ +
+ +<!-- 	<div id="finishScreen">
+ +		<h3>All Done!</h3>
+ +		<br>
+ +		<h4>Correct Answers</h4>
+ +	</div> -->
+ +
+ +	<script>
+ +		window.onload = function(){
+ +			$('#startButton').click(countdown.start);
+ +		};
+ +
+ +		var intervalId;
+ +
+ +		var clockRunning = false;
+ +
+ +		var countdown = {
+ +
+ +			time: 30,
+ +
+ +			reset: function(){
+ +				countdown.time = 30;
+ +
+ +				$('#counter').html(countdown.time);
+ +			},
+ +
+ +			start: function(){
+ +				// $('#startButton').click(function(){
+ +					if (!clockRunning) {
+ +        				intervalId = setInterval(countdown.count, 1000);
+ +       					clockRunning = true;
+ +     				}
+ +				// });
+ +			},
+ +
+ +			count: function(){
+ +				countdown.time--;
+ +
+ +				$('#counter').html(countdown.time);
+ +			}
+ +
+ +
+ +
+ +		}
+ +
+ +	</script>
+ +
+ +	 <!-- jQuery -->
+ +    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+ +</body>
+ +</html> 

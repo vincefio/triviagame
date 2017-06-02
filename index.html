@@ -3,20 +3,47 @@
 <head>
 	<title>TriviaGame</title>
 	<style>
-		 .displayNone{
-			display: none;
-		}
-
-		#startButton{
-			width: 15%;
-			height: 75px;
-		}
+		 
 	</style>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
 </head>
 
-<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-<body>
+
+<body class="Site">
+	<div  class="Site-content">
+	<!-- <img id="backgroundimage" src='assets/images/backgroundphoto.jpg'> -->
+	<div class="container navbar-fixed-top" id="picturestop">
+		<div class="row">
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/chuckberry.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/elvis.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/johncash.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/rollingstones.jpg">
+			</div>
+		<!-- <div class="row"> -->
+		</div>
+	</div>
 	<h1>Rock n Roll Trivia</h1>
+
+	
 
 	<div id="startPage">
 		<button type="button" id="startButton">Start</button>
@@ -27,13 +54,33 @@
 
 
 	<div id="finishScreen"></div>
-
-
-
+</div>
+	
+	 <footer class="footer">
+      <div class="container" id="picturestop">
+		<div class="row">
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/metallica.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/slayer.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/pantera.jpg">
+			</div>
+			<div class="col-xs-3">
+				<img class="topRoll" src="assets/images/gnr.jpg">
+			</div>
+		<!-- <div class="row"> -->
+		</div>
+    </footer>
 
 	<script>
+		
+
 		window.onload = function(){
 			$('#startButton').click(countdown.start);
+			
 			
 		};
 
@@ -153,42 +200,76 @@
 
  		];
 
+ 		var isRunning = false;
+
 		var intervalId;
+
+		var notFirstTime = false;
 
 		var clockRunning = false;
 
 		var countdown = {
 
-			time: 10,
+			time: 40,
 
 			reset: function(){
 				countdown.time = 30;
 
 				$('#counter').html(countdown.time);
+
+				$('#quizScreen').removeClass('displayNone');
+
+				// $('#quizScreen').empty();
+
+				$('#finishScreen').addClass('displayNone');
+
+				// $('#finishScreen').empty();
+
+				isRunning = false;
+
+				clockRunning = false;
+
+				notFirstTime = true;
+
+				countdown.start();
 			},
 
 			start: function(){
-				
+				if(!isRunning){
+					
+				isRunning = true;
 					if (!clockRunning) {
         				intervalId = setInterval(countdown.count, 1000);
        					clockRunning = true;
      				}
 
+
      				//Render the counter Screen
+     				if(!notFirstTime){
      				$('#quizScreen').prepend('<h3>Time Remaining: <span id="counter"></span> Seconds</h3>');
-				
-					//Render the questions
-					// for(var i = 0; i < questions.length; i++){
-					// 	var renderQuestions = '<h3>' + questions[i].question + '</h3><input type="radio" name="question' + [i] + '" value="">' + questions[i].answer1 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer2 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer3 + '</br> <input type="radio" name="question' + [i] + '" value="">' + questions[i].answer4 + '</br>';
-					// 	$('#quizScreen').append(renderQuestions); 
-					// }
+     				}
+		
 						for(var i = 0; i < questions.length; i++){
 						var renderQuestions = '<h3>' + questions[i].question + '</h3><input type="radio" name="question' + [i] + '" value="' + questions[i].answers[0].choice + '">' + questions[i].answers[0].option + '</br> <input type="radio" name="question' + [i] + '" value="' + questions[i].answers[1].choice + '">' + questions[i].answers[1].option + '</br> <input type="radio" name="question' + [i] + '" value="' + questions[i].answers[2].choice + '">' + questions[i].answers[2].option + '</br> <input type="radio" name="question' + [i] + '" value="' + questions[i].answers[3].choice + '">' + questions[i].answers[3].option + '</br>';
+
+						if(!notFirstTime){
 						$('#quizScreen').append(renderQuestions); 
+						}
+
 					}
+
+					if(!notFirstTime){
+					$('#quizScreen').append('<button type="button" id="doneButton">Done</button>');
+					}
+				}
+
 			},
 
 			count: function(){
+				$('#doneButton').on("click", function(){
+					countdown.stop();
+				});
+
 				if(countdown.time == 1){
 					countdown.stop();
 				}
@@ -232,15 +313,20 @@
 
 					// console.log(buttons);
 
-
 					// if($('input[type=radio]:checked').val)
 				}
-				console.log(correctAnswers);
+				// console.log(correctAnswers);
 
 				var renderScore = '<h2>All Done!</h2><br><h3>Correct Answers: ' + correctAnswers + '<h3>Incorrect Answers: ' + incorrectAnswers + '<h3>Unanswered: ' + unansweredQuestions + '</h3';
-				$('#finishScreen').append(renderScore);
+				$('#finishScreen').html(renderScore);
 
-			
+				$('#finishScreen').append('<button type="button" id="resetButton">Reset</button>');
+
+
+				$('#resetButton').on("click", function(){
+					countdown.reset();
+					// countdown.start();
+				});
 			}
 
 
@@ -248,7 +334,9 @@
 		}
 
 	</script>
-
+	<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script> -->
 	 <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
 </body>
